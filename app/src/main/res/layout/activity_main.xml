@@ -7,13 +7,69 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+
+    <Button
+        android:id="@+id/camarero"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="320dp"
+        android:backgroundTint="@color/fondo_boton"
+        android:hint="#FFFFFF"
+        android:text="CAMARERO1"
+        android:textColor="@drawable/forma_boton"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-16dp" />
+
+    <Button
+        android:id="@+id/cocina"
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        android:layout_marginBottom="176dp"
+        android:backgroundTint="@color/fondo_boton"
+        android:text="COCINA"
+        android:textColor="@drawable/forma_boton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/barra"
+        android:layout_width="match_parent"
+        android:layout_height="121dp"
+        android:backgroundTint="@color/fondo_boton"
+        android:text="BARRA/COBRO"
+        android:textColor="@drawable/forma_boton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.326"
+        tools:layout_editor_absoluteX="-2dp" />
+
+    <FrameLayout
+        android:layout_width="409dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="36dp"
+
+
+        android:background="#00BCD4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="234dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="NOMBRE"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/editTextText2"
+            android:layout_width="314dp"
+            android:layout_height="64dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name" />
+
+    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
