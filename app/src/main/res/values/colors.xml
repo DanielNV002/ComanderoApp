@@ -2,4 +2,5 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="celeste">#a9f4f5</color>  <!-- Un color azul fondo -->
 </resources>
