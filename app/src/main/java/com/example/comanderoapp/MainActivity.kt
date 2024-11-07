@@ -1,6 +1,8 @@
 package com.example.comanderoapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +17,12 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        //Crear eventos
+        val boton : Button = findViewById((R.id.cocina))
+        boton.setOnClickListener {
+            val intento = Intent(this, Cocina::class.java)
+            startActivity(intento)
         }
     }
 }
