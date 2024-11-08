@@ -2,6 +2,9 @@ package com.example.comanderoapp;
 
 import java.util.PropertyPermission;
 
+/**
+ * Clase que controla los productos
+ */
 public class Productos {
     private String nombre;
     private int cantidad;
