@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#00BCD4" />
+    <!-- Borde solo arriba y abajo -->
+    <!-- Borde superior -->
+    <stroke android:color="@color/black" android:width="5dp"/>
+
+    <!-- Esquinas cuadradas -->
+    <corners android:radius="0dp"/>
+</shape>
