@@ -41,35 +41,47 @@ class Cocina : AppCompatActivity() {
     }
 
     fun sacarRecibos(){
+        //porbisional hasta BD
         arrayB.add(Productos("Vino tinto", 4))
         arrayB.add(Productos("Cerveza", 9))
+        arrayP.add(Productos("Carrilada con castañas", 2))
+        arrayP.add(Productos("Choco a la plancha", 3))
+        //pasamos por todas las bebidas
         for (producto in arrayB) {
+            //sacamos la variable de las filas de las tablas
             val registro = LayoutInflater.from(this).inflate(R.layout.item_table_layout_pn,null,false)
+            //literalmente es una fila con puntos no hay más
             val puntos = LayoutInflater.from(this).inflate(R.layout.item_table_layout_puntos,null,false)
+            //cojemos los dos registros de cada TextView
             val nombre = registro.findViewById<View>(R.id.producto) as TextView
             val cantidad = registro.findViewById<View>(R.id.cantidad) as TextView
+            //metemos los valores a cada TextView
             nombre.setText(producto.nombre);
             val numero = "x"+producto.cantidad.toString()
             cantidad.setText(numero)
+            //metmos las dos filas en la tabla
             tlBebidas?.addView(registro)
             tlBebidas?.addView(puntos)
         }
-        arrayP.add(Productos("Carrilada con castañas", 2))
-        arrayP.add(Productos("Choco a la plancha", 3))
+        //el mismo codigo que el de arriba simplemnte es otra tabla
         for(producto in arrayP){
             val registro = LayoutInflater.from(this).inflate(R.layout.item_table_layout_pn,null,false)
             val puntos = LayoutInflater.from(this).inflate(R.layout.item_table_layout_puntos,null,false)
+
             val nombre = registro.findViewById<View>(R.id.producto) as TextView
             val cantidad = registro.findViewById<View>(R.id.cantidad) as TextView
+
             nombre.setText(producto.nombre)
             val numero = "x"+producto.cantidad.toString()
             cantidad.setText(numero)
+
             tlPrimeros?.addView(registro)
             tlPrimeros?.addView(puntos)
         }
     }
 
     fun recargarPedido(){
+        //Funcion que recarga las tablas
         tlBebidas?.removeAllViews()
         tlPrimeros?.removeAllViews()
         sacarRecibos()
