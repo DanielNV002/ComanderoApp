@@ -7,25 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sala: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.395"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394" />
-
     <FrameLayout
         android:id="@+id/FrameSala"
         android:layout_width="410dp"
         android:layout_height="50dp"
         android:background="#bffff7"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="35dp"/>
+        tools:layout_editor_absoluteY="35dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/ViewMesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textFontWeight="100"
+            android:text="Mesa: "
+
+            />
+    </FrameLayout>
 
 
     <FrameLayout
@@ -33,8 +32,32 @@
         android:layout_width="412dp"
         android:layout_height="470dp"
         android:background="#bffff7"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="123dp" />
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="130dp"
+        tools:ignore="MissingConstraints">
+
+        <TableLayout
+            android:id="@+id/TLFactura"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/FrameImpresora"
@@ -42,92 +65,18 @@
         android:layout_height="50dp"
         android:background="#bffff7"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="637dp" >
+        tools:layout_editor_absoluteY="637dp"
+        tools:ignore="MissingConstraints">
 
+        <!--
         <ImageButton
             android:id="@+id/BotonImprimir"
             android:layout_width="66dp"
-            android:layout_height="55dp"
+            android:layout_height="52dp"
             android:scaleType="centerInside"
             app:srcCompat="@mipmap/impresora"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints" /> -->
     </FrameLayout>
-
-    <TableLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <!-- Encabezado de la tabla -->
-        <TableRow>
-            <TextView
-                android:text="Nombre"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:text="Cantidad"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:text="Precio Unitario"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:text="Precio Final"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <!-- Filas de datos -->
-        <!-- Fila 1 -->
-        <TableRow>
-            <TextView
-                android:text=" xxxxx "
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:gravity="center" />
-
-            <TextView
-                android:text=" xxxxx "
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:gravity="center" />
-
-            <TextView
-                android:text=" xxxxx "
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:gravity="center" />
-
-            <TextView
-                android:text=" xxxxx "
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:gravity="center" />
-        </TableRow>
-
-        <!-- Repetir más filas como la anterior para llegar a 7 -->
-        <!-- Ejemplo para 7 filas -->
-        <TableRow> <!-- Fila 2 -->
-            <!-- Repite los TextViews con los datos necesarios -->
-        </TableRow>
-
-        <!-- Continuar con más filas según lo necesites -->
-
-    </TableLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
