@@ -185,6 +185,15 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="-1dp">
 
+        <Button
+            android:id="@+id/salir"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="EXIT"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="30dp" />
+
     </FrameLayout>
 
 

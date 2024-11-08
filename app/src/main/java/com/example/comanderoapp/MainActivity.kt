@@ -27,5 +27,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MesasActivity::class.java)
             startActivity(intent)
         }
+
+        // Configura el botón "EXIT" para cerrar la aplicación
+        val salirButton: Button = findViewById(R.id.salir)
+        salirButton.setOnClickListener {
+            finishAffinity() // Cierra todas las actividades y finaliza la aplicación
+        }
     }
 }
