@@ -8,11 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MesasActivity : AppCompatActivity() {
+class TerrazaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_mesas)
+        setContentView(R.layout.activity_terraza)
 
         // Manejo de insets para el diseño Edge-to-Edge
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -21,10 +21,10 @@ class MesasActivity : AppCompatActivity() {
             insets
         }
 
-        // Configura el botón "SALA" para regresar a TerrazaActivity
-        val salaButton: Button = findViewById(R.id.salaButton)
-        salaButton.setOnClickListener {
-            val intent = Intent(this, TerrazaActivity::class.java)
+        // Configura el botón "TERRAZA" para navegar a SalaActivity
+        val terrazaButton: Button = findViewById(R.id.terrazaButton)
+        terrazaButton.setOnClickListener {
+            val intent = Intent(this, MesasActivity::class.java)
             startActivity(intent)
         }
 
@@ -33,9 +33,8 @@ class MesasActivity : AppCompatActivity() {
         atrasButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish() // Cierra SalaActivity para evitar apilar actividades
+            finish() // Cierra MesasActivity para evitar apilar actividades
         }
-
-
     }
 }
+
