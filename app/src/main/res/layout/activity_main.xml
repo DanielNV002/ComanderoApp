@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="180dp"
+            android:id="@+id/textViewNComensales"
+            android:layout_width="196dp"
             android:layout_height="69dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:text="Nº Comensales:"
-            android:textSize="20dp"
+            android:textSize="23dp"
             tools:layout_editor_absoluteX="200dp"
             tools:layout_editor_absoluteY="65dp" />
 
@@ -54,18 +54,63 @@
             android:layout_height="140dp"
             android:background="@drawable/border"
             android:layout_marginLeft="13dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:srcCompat="@drawable/ic_beer" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="115dp"
+                android:text="BEBIDAS" />
         </FrameLayout>
         <FrameLayout
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:background="@drawable/border"
             android:layout_marginLeft="151dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:srcCompat="@drawable/ic_entrantes" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="115dp"
+                android:text="ENTRANTES" />
         </FrameLayout>
         <FrameLayout
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:background="@drawable/border"
             android:layout_marginLeft="287dp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                app:srcCompat="@drawable/ic_1plato" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="115dp"
+                android:text="1º PLATO" />
         </FrameLayout>
         <FrameLayout
             android:layout_width="140dp"
@@ -73,6 +118,21 @@
             android:background="@drawable/border"
             android:layout_marginLeft="13dp"
             android:layout_marginTop="138dp">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:srcCompat="@drawable/ic_2plato" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="115dp"
+                android:text="2º PLATO" />
         </FrameLayout>
         <FrameLayout
             android:layout_width="140dp"
@@ -80,6 +140,21 @@
             android:background="@drawable/border"
             android:layout_marginLeft="151dp"
             android:layout_marginTop="138dp">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                app:srcCompat="@drawable/ic_postre" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="115dp"
+                android:text="POSTRES" />
         </FrameLayout>
         <FrameLayout
             android:layout_width="140dp"
@@ -87,6 +162,65 @@
             android:background="@drawable/border"
             android:layout_marginLeft="287dp"
             android:layout_marginTop="138dp">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                app:srcCompat="@drawable/ic_child" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="115dp"
+                android:text="MENU INFANTIL" />
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="210dp"
+            android:layout_height="123dp"
+            android:background="@drawable/border"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="276dp">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:srcCompat="@drawable/ic_vino" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="85dp"
+                android:layout_marginTop="100dp"
+                android:text="VINOS" />
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="210dp"
+            android:layout_height="123dp"
+            android:background="@drawable/border"
+            android:layout_marginLeft="221dp"
+            android:layout_marginTop="276dp">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:srcCompat="@drawable/ic_menu" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="100dp"
+                android:text="MENU DEL DIA" />
         </FrameLayout>
 
     </FrameLayout>
@@ -155,8 +289,50 @@
                 android:src="@drawable/btntick" />
         </FrameLayout>
 
-        />
-
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/textViewAtendidoPor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="164dp"
+        android:text="Atendido por: "
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAtendidoPorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="164dp"
+        android:text=" "
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNMesa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="136dp"
+        android:text="Nº Mesa: "
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNMesaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="136dp"
+        android:text=" "
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
