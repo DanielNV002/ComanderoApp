@@ -241,7 +241,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/forma_boton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mesas"
+        app:layout_constraintTop_toBottomOf="@+id/mesasSala"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="-1dp"
         tools:ignore="MissingConstraints">
