@@ -22,10 +22,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        tlFactura=findViewById(R.id.TlRowFactura)
 
-
-        llenarFactura()
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +32,13 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+
+        tlFactura=findViewById(R.id.TLFactura)
+
+
+        llenarFactura()
     }
 
     fun llenarFactura(){
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
             //ahora se muestran en texto (de momento da error por que no hay variable "fila"
             textViewNombreProducto.setText(factura.producto)
-            textViewCantidad.setText(factura.cantidad)
+            textViewCantidad.setText(factura.cantidad.toString())
             TextViewPrecioUnitario.setText(factura.precioUnidad.toString())
             TextViewPrecioTotal.setText(factura.precioTotal.toString())
             tlFactura?.addView(Registrar)
