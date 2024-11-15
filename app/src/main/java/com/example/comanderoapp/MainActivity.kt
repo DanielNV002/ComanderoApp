@@ -28,10 +28,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Configura el botón "EXIT" para cerrar la aplicación
+        // Configura el botón "EXIT" para volver a la SesionActivity
         val salirButton: Button = findViewById(R.id.salir)
         salirButton.setOnClickListener {
-            finishAffinity() // Cierra todas las actividades y finaliza la aplicación
+            val intent = Intent(this, SesionActivity::class.java)
+            startActivity(intent) // Redirige a SesionActivity
+            finish() // Finaliza MainActivity
         }
     }
 }

@@ -13,15 +13,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".TerrazaActivity"
-            android:exported="true" /> <!-- Aquí agregamos TerrazaActivity -->
-
-        <activity
-            android:name=".MesasActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".MainActivity"
+            android:name=".SesionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +21,18 @@
             </intent-filter>
         </activity>
 
-    </application>
+        <activity
+            android:name=".TerrazaActivity"
+            android:exported="true" />
 
+        <activity
+            android:name=".MesasActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+
+    </application>
 </manifest>
+

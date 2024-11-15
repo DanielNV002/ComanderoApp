@@ -10,8 +10,8 @@
 
     <FrameLayout
         android:id="@+id/frameLayout2"
-        android:layout_width="416dp"
-        android:layout_height="106dp"
+        android:layout_width="417dp"
+        android:layout_height="105dp"
 
 
         android:layout_marginTop="36dp"
@@ -24,7 +24,7 @@
             android:layout_width="223dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="NOMBRE"
+            android:text="DNI"
             android:textColor="@color/black"
             android:textSize="25dp" />
 
@@ -39,7 +39,7 @@
             android:backgroundTint="#FFFFFF"
             android:ems="10"
             android:inputType="text"
-            android:text="|"
+            android:hint="Escribe tu DNI"
 
             android:visibility="visible" />
 
@@ -52,18 +52,18 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="408dp"
-        android:layout_height="405dp"
+        android:layout_width="412dp"
+        android:layout_height="412dp"
         android:background="@color/black"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
         app:layout_constraintVertical_bias="0.318"
-        tools:layout_editor_absoluteX="4dp">
+        tools:layout_editor_absoluteX="0dp">
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="5dp" />
+            android:layout_height="8dp" />
 
         <!-- FrameLayout contenedor para el botón y el TextView -->
         <FrameLayout
@@ -73,6 +73,9 @@
             android:background="@drawable/forma_boton">
 
             <!-- Botón -->
+
+            <!-- TextView con la flecha (>) que se mueve libremente dentro del FrameLayout -->
+
             <Button
                 android:id="@+id/camarero"
                 android:layout_width="match_parent"
@@ -83,7 +86,6 @@
                 android:textColor="@color/black"
                 android:textSize="30dp" />
 
-            <!-- TextView con la flecha (>) que se mueve libremente dentro del FrameLayout -->
             <TextView
                 android:id="@+id/flechaCamarero"
                 android:layout_width="89dp"
