@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cocina"
         android:layout_width="match_parent"
-        android:layout_height="1000dp"
+        android:layout_height="wrap_content"
         tools:context=".Cocina">
 
         <TextView
@@ -25,60 +25,51 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/Bebidas"
-            android:layout_width="match_parent"
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentBebidas"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:background="@color/blue"
-            android:text="Bebidas"
-            android:textAlignment="center"
+            android:layout_marginTop="72dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Tipo" />
+            app:layout_constraintTop_toBottomOf="@+id/Tipo"/>
 
-
-        <TableLayout
-            android:id="@+id/tlBebidas"
-            android:layout_width="match_parent"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentComidas"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
-            android:paddingLeft="40dp"
-            android:paddingRight="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/Bebidas">
-
-        </TableLayout>
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentBebidas"/>
 
         <TextView
-            android:id="@+id/Primeros"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:background="@color/blue"
-            android:layout_marginTop="45dp"
-            android:text="Primeros"
-            android:textAlignment="center"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tlBebidas" />
-
-        <TableLayout
-            android:id="@+id/tlPrimeros"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/blue"
-            android:paddingLeft="40dp"
-            android:paddingRight="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/Primeros">
-
-        </TableLayout>
+            app:layout_constraintTop_toBottomOf="@+id/fragmentComidas"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/recargar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="88dp"
-            android:text="Recargar"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="25dp"
+            android:text="Completada"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tlPrimeros" />
+            app:layout_constraintTop_toBottomOf="@+id/fragmentComidas"
+            app:layout_constraintVertical_bias="0.814" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

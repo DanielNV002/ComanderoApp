@@ -1,59 +1,83 @@
 package com.example.comanderoapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TableLayout
+import android.widget.TextView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Comanda.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Comanda : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var tipo: String? = null
+    private var numero: String? = null
+    val arrayC = ArrayList<Productos>()
+    var tlComanda: TableLayout?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            tipo = it.getString(TIPO_BUNDLE)
+            numero = it.getString(NUMERO_BUNDLE)
+            Log.i("Comanda", tipo.orEmpty()+numero.orEmpty())
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comanda, container, false)
+        val view = inflater.inflate(R.layout.fragment_comanda, container, false)
+        val label=view.findViewById<TextView>(R.id.TipoC)
+        label.text = tipo
+        tlComanda = view.findViewById(R.id.tlComandas)
+        sacarRecibos()
+        return view
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Comanda.
-         */
-        // TODO: Rename and change types and number of parameters
+        const val TIPO_BUNDLE = "tipo_bundle"
+        const val NUMERO_BUNDLE = "numero_bundle"
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(Tipo: String, Terraza: String) =
             Comanda().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(TIPO_BUNDLE, Tipo)
+                    putString(NUMERO_BUNDLE, Terraza)
                 }
             }
+    }
+
+    fun sacarRecibos() {
+        //porbisional hasta BD
+        arrayC.add(Productos("Vino tinto", 4))
+        arrayC.add(Productos("Cerveza", 9))
+        arrayC.add(Productos("Cocacola", 2))
+        arrayC.add(Productos("Agua", 3))
+        //pasamos por todas las bebidas
+        for (producto in arrayC) {
+            //sacamos la variable de las filas de las tablas
+            val registro =
+                LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_pn, null, false)
+            //literalmente es una fila con puntos no hay más
+            val puntos =
+                LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_puntos, null, false)
+            //cojemos los dos registros de cada TextView
+            val nombre = registro.findViewById<View>(R.id.producto) as TextView
+            val cantidad = registro.findViewById<View>(R.id.cantidad) as TextView
+            //metemos los valores a cada TextView
+            nombre.setText(producto.nombre);
+            val numero = "x" + producto.cantidad.toString()
+            cantidad.setText(numero)
+            //metmos las dos filas en la tabla
+            tlComanda?.addView(registro)
+            tlComanda?.addView(puntos)
+            Log.i("Comanda", producto.nombre.orEmpty()+" "+producto.cantidad)
+        }
     }
 }
