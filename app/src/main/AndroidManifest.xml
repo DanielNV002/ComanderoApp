@@ -37,6 +37,12 @@
             android:name=".MainActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".Cocina"
+            android:exported="true" />
+
+
+
     </application>
 
 </manifest>

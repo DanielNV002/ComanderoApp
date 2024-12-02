@@ -31,19 +31,23 @@ class SesionActivity : AppCompatActivity() {
 
         // Acción al pulsar "Registrar"
         btnRegistrar.setOnClickListener {
-            val nombre = etNombre.text.toString()
-            val dni = etDni.text.toString()
+            try {
+                val nombre = etNombre.text.toString().trim()
+                var dni = etDni.text.toString().trim()
 
-            if (nombre.isNotEmpty() && dni.isNotEmpty()) {
-                // Aquí puedes añadir el código para registrar al trabajador en la base de datos
-                base.anadirTrabajador(dni,nombre)
-                Toast.makeText(this, "Usuario registrado: $nombre", Toast.LENGTH_SHORT).show()
+                if (validarNombre(nombre) && validarDNI(dni, base)) {
+                    // Convertir DNI a mayúsculas antes de guardarlo
+                    dni = dni.uppercase()
 
-                // Redirigir al MainActivity después de registrar
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Por favor, rellena todos los campos.", Toast.LENGTH_SHORT).show()
+                    base.anadirTrabajador(dni, nombre)
+                    Toast.makeText(this, "Usuario registrado: $nombre", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace() // Muestra el error en el Logcat
+                Toast.makeText(this, "Ocurrió un error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -52,7 +56,25 @@ class SesionActivity : AppCompatActivity() {
             finishAffinity() // Cierra todas las actividades y finaliza la aplicación
         }
     }
+
+    private fun validarNombre(nombre: String): Boolean {
+        return if (nombre.matches(Regex("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$"))) {
+            true
+        } else {
+            Toast.makeText(this, "Nombre no válido. Solo se permiten letras y espacios.", Toast.LENGTH_SHORT).show()
+            false
+        }
+    }
+
+    private fun validarDNI(dni: String, base: DataBaseHelper): Boolean {
+        if (!dni.matches(Regex("^[0-9]{8}[A-Za-z]$"))) {
+            Toast.makeText(this, "DNI no válido. Debe tener 8 dígitos y una letra.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (base.comprobarDniExistente(dni.uppercase())) { // Comprobación con la letra en mayúsculas
+            Toast.makeText(this, "El DNI ya está registrado en la base de datos.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
 }
-
-
-

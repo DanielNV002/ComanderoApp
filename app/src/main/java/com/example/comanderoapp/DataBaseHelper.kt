@@ -90,6 +90,16 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
         db.close() // Cerrar conexión
     }
 
+    fun comprobarDniExistente(dni: String): Boolean {
+        val db = readableDatabase
+        val query = "SELECT 1 FROM trabajador WHERE dni = ?"
+        val cursor = db.rawQuery(query, arrayOf(dni))
+        val existe = cursor.moveToFirst()
+        cursor.close()
+        db.close()
+        return existe
+    }
+
     /**
      * Función para obtener un trabajador por DNI.
      */
