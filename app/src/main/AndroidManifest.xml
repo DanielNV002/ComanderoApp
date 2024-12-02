@@ -21,6 +21,22 @@
             android:label="@string/title_activity_main2" />
         <activity
             android:name=".MainActivity"
+            android:name=".MenuPostres"
+            android:exported="false" />
+        <activity
+            android:name=".MenuSplato"
+            android:exported="false" />
+        <activity
+            android:name=".MenuPplato"
+            android:exported="false" />
+        <activity
+            android:name=".MenuEntrantes"
+            android:exported="false" />
+        <activity
+            android:name=".MenuBebidas"
+            android:exported="false" />
+        <activity
+            android:name=".MenuComandas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
