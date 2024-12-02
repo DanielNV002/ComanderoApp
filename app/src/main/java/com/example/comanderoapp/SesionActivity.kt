@@ -11,6 +11,7 @@ class SesionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sesion)
+        val base = DataBaseHelper(context = this)
 
         // Inicializar los EditText
         val etNombre: EditText = findViewById(R.id.et_nombre) // EditText para el nombre
@@ -35,7 +36,7 @@ class SesionActivity : AppCompatActivity() {
 
             if (nombre.isNotEmpty() && dni.isNotEmpty()) {
                 // Aquí puedes añadir el código para registrar al trabajador en la base de datos
-
+                base.anadirTrabajador(dni,nombre)
                 Toast.makeText(this, "Usuario registrado: $nombre", Toast.LENGTH_SHORT).show()
 
                 // Redirigir al MainActivity después de registrar
