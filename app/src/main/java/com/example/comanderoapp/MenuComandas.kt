@@ -49,7 +49,7 @@ class MenuComandas : AppCompatActivity() {
         // Obtener el número de mesa del Intent
         val numeroMesa = intent.getIntExtra("numeroMesa", -1)
 
-        Log.i("numeroMesa", numeroMesa.toString())
+        Log.i("nMesa", numeroMesa.toString())
 
         // Si el número de mesa es válido (no es -1), entonces actualizamos el TextView
         if (numeroMesa != -1) {
