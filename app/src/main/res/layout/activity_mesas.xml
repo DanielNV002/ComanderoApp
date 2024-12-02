@@ -32,7 +32,7 @@
             android:gravity="left|center"
             android:text="SALA"
             android:textColor="@android:color/black"
-            android:textSize="35dp" />
+            android:textSize="35sp" />
 
         <TextView
             android:id="@+id/flecha"

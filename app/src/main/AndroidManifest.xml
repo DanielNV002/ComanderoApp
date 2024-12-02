@@ -37,6 +37,12 @@
             android:name=".MainActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".MenuComandas"
+            android:exported ="true"
+            >
+        </activity>
+
     </application>
 
 </manifest>

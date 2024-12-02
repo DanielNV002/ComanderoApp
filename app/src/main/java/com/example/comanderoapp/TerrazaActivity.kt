@@ -3,6 +3,7 @@ package com.example.comanderoapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -34,6 +35,23 @@ class TerrazaActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish() // Cierra MesasActivity para evitar apilar actividades
+        }
+
+        // Suponiendo que tienes 10 ImageViews (msala1, msala2, ..., msala10)
+        val terrazas = arrayOf(
+            R.id.mterraza10, R.id.mterraza11, R.id.mterraza12, R.id.mterraza13, R.id.mterraza14,
+            R.id.mterraza15, R.id.mterraza16, R.id.mterraza17, R.id.mterraza18
+        )
+
+// Recorremos el array de identificadores
+        for (i in terrazas.indices) {
+            val mesa = findViewById<ImageView>(terrazas[i])
+            mesa?.setOnClickListener {
+                val numeroTerraza = i + 10 // Sumar 1 para que el número de la mesa empiece en 1
+                val intent = Intent(this, MenuComandas::class.java)
+                intent.putExtra("numeroMesa",numeroTerraza)
+                startActivity(intent)
+            }
         }
     }
 }

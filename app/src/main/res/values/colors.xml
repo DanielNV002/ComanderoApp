@@ -2,10 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="celeste">#a9f4f5</color>  <!-- Un color azul fondo -->
     <color name="Back">#f30a0a</color> <!--Color rojo-->
     <color name="Edit">#f3de0a</color>
     <color name="Send">#48e300</color>
-    <color name="blue">#91d9ff</color>
-    <color name="fondo">#00BCD4</color>
+    <color name="blue">#00BCD4</color>
+    <color name="fondo">#a9f4f5</color>
 </resources>
