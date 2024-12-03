@@ -2,40 +2,68 @@ package com.example.comanderoapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
-import kotlin.math.log
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var dbHelper: DataBaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Configuración de sistema edge-to-edge
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        // Inicializar el helper de base de datos
+        dbHelper = DataBaseHelper(this)
 
-        // Configuración del clic para navegar a MesasActivity
+        // Referencias a los botones y el campo de texto
+        val dniEditText: EditText = findViewById(R.id.nombre) // Campo para DNI
         val camareroButton: Button = findViewById(R.id.camarero)
+        val cocinaButton: Button = findViewById(R.id.cocina)
+        val barraButton: Button = findViewById(R.id.barra)
+        val salirButton: Button = findViewById(R.id.salir)
+
+        // Configuración de los botones
         camareroButton.setOnClickListener {
-            val intent = Intent(this, MesasActivity::class.java)
-            startActivity(intent)
+            val dni = dniEditText.text.toString().trim().uppercase() // Convertir DNI a mayúsculas
+            if (dbHelper.comprobarDniExistente(dni)) {
+                val intent = Intent(this, MesasActivity::class.java)
+                startActivity(intent)
+            } else {
+                mostrarToastDniNoValido()
+            }
         }
 
-        // Configura el botón "EXIT" para volver a la SesionActivity
-        val salirButton: Button = findViewById(R.id.salir)
+        cocinaButton.setOnClickListener {
+            val dni = dniEditText.text.toString().trim().uppercase() // Convertir DNI a mayúsculas
+            if (dbHelper.comprobarDniExistente(dni)) {
+                val intent = Intent(this, Cocina::class.java)  // Navegar a la actividad Cocina
+                startActivity(intent)
+            } else {
+                mostrarToastDniNoValido()
+            }
+        }
+
+
+        barraButton.setOnClickListener {
+            val dni = dniEditText.text.toString().trim().uppercase()  // Convertir DNI a mayúsculas
+            if (dbHelper.comprobarDniExistente(dni)) {
+                val intent = Intent(this, Factura::class.java)  // Navegar a la actividad Factura
+                startActivity(intent)
+            } else {
+                mostrarToastDniNoValido()
+            }
+        }
+
         salirButton.setOnClickListener {
             val intent = Intent(this, SesionActivity::class.java)
-            startActivity(intent) // Redirige a SesionActivity
-            finish() // Finaliza MainActivity
+            startActivity(intent)
+            finish()
         }
+    }
+
+    private fun mostrarToastDniNoValido() {
+        Toast.makeText(this, "DNI no registrado. Acceso denegado.", Toast.LENGTH_SHORT).show()
     }
 }

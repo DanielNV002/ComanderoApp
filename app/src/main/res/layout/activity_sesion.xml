@@ -7,9 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".SesionActivity">
 
-    <!-- Título o mensaje principal -->
 
-    <!-- Botón para usuarios registrados -->
 
     <TextView
         android:id="@+id/tv_sesion_title"
@@ -35,13 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto indicando el registro -->
 
-    <!-- Campo de entrada para el nombre -->
-
-    <!-- Campo de entrada para el DNI -->
-
-    <!-- Botón para registrar -->
 
     <TextView
         android:id="@+id/tv_no_registrado"
