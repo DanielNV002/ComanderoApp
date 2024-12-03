@@ -32,7 +32,9 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
         val ordenCreacionComanda = """
             CREATE TABLE comanda (
                 codigocomanda INTEGER PRIMARY KEY AUTOINCREMENT,
-                preciopedido REAL NOT NULL
+                preciopedido REAL NOT NULL,
+                numeroMesa INTEGER NOT NULL,
+                FOREIGN KEY (numeroMesa) REFERENCES mesa(numero)
             )
         """.trimIndent()
         db.execSQL(ordenCreacionComanda)
