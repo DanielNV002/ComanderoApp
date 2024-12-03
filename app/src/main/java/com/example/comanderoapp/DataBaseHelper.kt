@@ -111,6 +111,20 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
     }
 
     /**
+     * Obtiene todas la comandas
+     */
+    fun obtenerComandas(): Cursor? {
+        val db = this.readableDatabase
+        val query = """
+        SELECT producto.tipoproducto, producto.nombre, almacena.cantidad 
+        FROM almacena 
+        INNER JOIN producto 
+        ON almacena.productoId = producto.productoId;
+    """
+        return db.rawQuery(query, null)
+    }
+
+    /**
      * Inserta productos iniciales en la tabla producto.
      */
     private fun insertarProductosIniciales(db: SQLiteDatabase) {

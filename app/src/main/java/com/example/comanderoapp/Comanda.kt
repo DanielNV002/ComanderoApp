@@ -16,6 +16,7 @@ class Comanda : Fragment() {
     private var numero: String? = null
     val arrayC = ArrayList<Productos>()
     var tlComanda: TableLayout?=null
+    private lateinit var base: DataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,9 @@ class Comanda : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_comanda, container, false)
+
+        base = DataBaseHelper(requireContext())
+
         val label=view.findViewById<TextView>(R.id.TipoC)
         label.text = tipo
         tlComanda = view.findViewById(R.id.tlComandas)
@@ -54,30 +58,30 @@ class Comanda : Fragment() {
     }
 
     fun sacarRecibos() {
-        //porbisional hasta BD
-        arrayC.add(Productos("Vino tinto", 4))
-        arrayC.add(Productos("Cerveza", 9))
-        arrayC.add(Productos("Cocacola", 2))
-        arrayC.add(Productos("Agua", 3))
+        val comanda = base?.obtenerComandas()
         //pasamos por todas las bebidas
-        for (producto in arrayC) {
-            //sacamos la variable de las filas de las tablas
-            val registro =
-                LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_pn, null, false)
-            //literalmente es una fila con puntos no hay más
-            val puntos =
-                LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_puntos, null, false)
-            //cojemos los dos registros de cada TextView
-            val nombre = registro.findViewById<View>(R.id.producto) as TextView
-            val cantidad = registro.findViewById<View>(R.id.cantidad) as TextView
-            //metemos los valores a cada TextView
-            nombre.setText(producto.nombre);
-            val numero = "x" + producto.cantidad.toString()
-            cantidad.setText(numero)
-            //metemos las dos filas en la tabla
-            tlComanda?.addView(registro)
-            tlComanda?.addView(puntos)
-            Log.i("Comanda", producto.nombre.orEmpty()+" "+producto.cantidad)
+        if (comanda != null && comanda.moveToFirst()) {
+                do {
+                    //sacamos la variable de las filas de las tablas
+                    val registro =
+                        LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_pn, null, false)
+                    //literalmente es una fila con puntos no hay más
+                    val puntos =
+                        LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_puntos, null, false)
+                    //cojemos los dos registros de cada TextView
+                    val tipo = registro.findViewById<View>(R.id.tipo) as TextView
+                    val nombre = registro.findViewById<View>(R.id.producto) as TextView
+                    val cantidad = registro.findViewById<View>(R.id.cantidad) as TextView
+                    //metemos los valores a cada TextView
+                    tipo.setText(comanda?.getString(1))
+                    nombre.setText(comanda?.getString(2))
+                    val numero = "x" + comanda?.getInt(3)
+                    cantidad.setText(numero)
+                    //metemos las dos filas en la tabla
+                    tlComanda?.addView(registro)
+                    tlComanda?.addView(puntos)
+                    Log.i("Comanda",nombre.text.toString())
+                }while(comanda.moveToNext())
         }
     }
 }
