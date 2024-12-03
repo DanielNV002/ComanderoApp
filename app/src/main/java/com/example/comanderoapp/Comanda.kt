@@ -74,7 +74,7 @@ class Comanda : Fragment() {
             nombre.setText(producto.nombre);
             val numero = "x" + producto.cantidad.toString()
             cantidad.setText(numero)
-            //metmos las dos filas en la tabla
+            //metemos las dos filas en la tabla
             tlComanda?.addView(registro)
             tlComanda?.addView(puntos)
             Log.i("Comanda", producto.nombre.orEmpty()+" "+producto.cantidad)
