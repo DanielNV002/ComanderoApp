@@ -43,6 +43,20 @@ class MenuComandas : AppCompatActivity() {
             }
         }
 
+        // Encuentra los TextView
+        val imageViewEdit = findViewById<ImageView>(R.id.btnEdit)
+        imageViewEdit.setOnClickListener {
+            // Buscar el fragmento con el tag correcto
+            val fragment = supportFragmentManager.findFragmentByTag(ComandasFragment::class.java.simpleName)
+
+            // Si el fragmento no está visible, reemplazamos el fragmento actual con ComandasFragment
+            if (fragment == null || !fragment.isVisible) {
+                loadFragment(ListaComanda())  // Carga el fragmento
+            }
+            // Si ya está visible, no necesitamos hacer nada
+        }
+
+
         val mesa = findViewById<TextView>(R.id.textViewNMesaLabel)
         val terraza = findViewById<TextView>(R.id.textViewNMesaLabel)
 
@@ -57,7 +71,7 @@ class MenuComandas : AppCompatActivity() {
             if (mesa.text.isEmpty()) {
                 // Si el TextView 'mesa' está vacío, usamos este para mostrar el número de mesa
                 mesa.text = numeroMesa.toString()
-            } else if (terraza.text.isEmpty()) {
+            } else {
                 // Si el TextView 'terraza' está vacío, usamos este para mostrar el número de mesa
                 terraza.text = numeroMesa.toString()
             }
@@ -79,5 +93,4 @@ class MenuComandas : AppCompatActivity() {
         transaction.addToBackStack(ComandasFragment::class.java.simpleName) // Aseguramos que se agregue a la pila
         transaction.commit()
     }
-
 }
