@@ -27,7 +27,7 @@ class MenuComandas : AppCompatActivity() {
 
         loadFragment(ComandasFragment())
 
-        // Encuentra los TextView
+        // Encuentra el btnBack
         val imageViewBack = findViewById<ImageView>(R.id.btnBack)
         imageViewBack.setOnClickListener {
             // Buscar el fragmento con el tag correcto
@@ -39,11 +39,11 @@ class MenuComandas : AppCompatActivity() {
                 val intent = Intent(this, MesasActivity::class.java)
                 startActivity(intent)
             } else {
-                loadFragment2(ComandasFragment())
+                loadFragmentBack(ComandasFragment())
             }
         }
 
-        // Encuentra los TextView
+        // Encuentra el btnEdit
         val imageViewEdit = findViewById<ImageView>(R.id.btnEdit)
         imageViewEdit.setOnClickListener {
             // Buscar el fragmento con el tag correcto
@@ -53,10 +53,10 @@ class MenuComandas : AppCompatActivity() {
             if (fragment == null || !fragment.isVisible) {
                 loadFragment(ListaComanda())  // Carga el fragmento
             }
-            // Si ya está visible, no necesitamos hacer nada
         }
 
 
+        // Coge el numero de la mesa y lo muestra en la pantalla de camarero
         val mesa = findViewById<TextView>(R.id.textViewNMesaLabel)
         val terraza = findViewById<TextView>(R.id.textViewNMesaLabel)
 
@@ -79,7 +79,7 @@ class MenuComandas : AppCompatActivity() {
 
     }
 
-    // Método para cargar un fragmento
+    // Metodo para cargar un fragmento
     private fun loadFragment(fragmentMENU: Fragment) {
         // Reemplaza el fragment en el FrameLayout
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -87,7 +87,7 @@ class MenuComandas : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun loadFragment2(fragment: Fragment) {
+    private fun loadFragmentBack(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayoutMENU, fragment, ComandasFragment::class.java.simpleName) // Usamos el tag
         transaction.addToBackStack(ComandasFragment::class.java.simpleName) // Aseguramos que se agregue a la pila

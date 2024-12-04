@@ -6,6 +6,7 @@
     tools:context=".BebidasFragment">
 
     <FrameLayout
+        android:id="@+id/bebidasContainer"
         android:layout_width="440dp"
         android:layout_height="399dp"
         android:background="@drawable/border">
