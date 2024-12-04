@@ -49,9 +49,9 @@ class MenuComandas : AppCompatActivity() {
             // Buscar el fragmento con el tag correcto
             val fragment = supportFragmentManager.findFragmentByTag(ComandasFragment::class.java.simpleName)
 
-            // Si el fragmento no está visible, reemplazamos el fragmento actual con ComandasFragment
+            // Si el fragmento no está visible, reemplazamos el fragmento actual con ListaComanda
             if (fragment == null || !fragment.isVisible) {
-                loadFragment(ListaComanda())  // Carga el fragmento
+                loadFragment(ListaComanda())  // Carga el fragmento ListaComanda
             }
         }
 

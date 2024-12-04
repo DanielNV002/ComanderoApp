@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".InfantilFragment">
     <FrameLayout
+        android:id="@+id/productosContainer"
         android:layout_width="440dp"
         android:layout_height="399dp"
         android:background="@drawable/border">
