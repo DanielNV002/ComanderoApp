@@ -116,12 +116,19 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
     fun obtenerComandas(): Cursor? {
         val db = this.readableDatabase
         val query = """
-        SELECT producto.tipoproducto, producto.nombre, almacena.cantidad 
+        SELECT producto.tipoproducto, producto.nombre, almacena.cantidad, almacena.codigocomanda, almacena.productoId
         FROM almacena 
         INNER JOIN producto 
         ON almacena.productoId = producto.productoId;
     """
         return db.rawQuery(query, null)
+    }
+
+    fun eliminarProducto(idComanda: Int, idProducto: Int): Int {
+        val db = writableDatabase
+        val query = arrayOf(idComanda.toString(), idProducto.toString())
+
+        return db.delete("almacena","codigocomanda = ? and productoId = ?",query)
     }
 
     /**

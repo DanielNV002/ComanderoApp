@@ -12,19 +12,19 @@
         android:layout_height="wrap_content"
         tools:context=".Cocina">
 
+
         <TextView
             android:id="@+id/Tipo"
             android:layout_width="467dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/blue"
+            android:layout_marginTop="12dp"
+            android:background="@color/fondo"
             android:paddingStart="20dp"
             android:paddingTop="15dp"
-            android:text="Terraza 11"
+            android:text="COCINA"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentBebidas"
@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/blue"
+            android:background="@color/fondo"
             android:layout_marginTop="56dp"
             android:layout_marginBottom="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -64,11 +64,21 @@
             android:layout_marginTop="56dp"
             android:layout_marginBottom="25dp"
             android:text="Completada"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragmentComidas"
             app:layout_constraintVertical_bias="0.814" />
+
+        <Button
+            android:id="@+id/atras"
+            android:layout_width="136dp"
+            android:layout_height="59dp"
+            android:layout_marginBottom="1dp"
+            android:foreground="@drawable/btnflecha"
+            app:layout_constraintBottom_toBottomOf="@+id/Tipo"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

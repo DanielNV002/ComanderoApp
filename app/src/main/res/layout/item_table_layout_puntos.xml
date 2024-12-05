@@ -5,10 +5,22 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/producto"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_weight=".25"
-            android:text="------------------------------------------------------------------------------------------------------------" />
+            android:id="@+id/l1"
+            android:layout_width="88dp"
+            android:text="-------------------------" />
+
+    <TextView
+        android:id="@+id/l2"
+        android:layout_width="wrap_content"
+        android:text="---------------------------------" />
+
+    <TextView
+        android:id="@+id/l3"
+        android:layout_width="wrap_content"
+        android:text="------------------" />
+        <TextView
+            android:id="@+id/l4"
+            android:layout_width="63dp"
+            android:text="--------------" />
 
     </TableRow>

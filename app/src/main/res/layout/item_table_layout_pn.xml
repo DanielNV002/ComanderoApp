@@ -4,26 +4,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tipo"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".25"
-            android:text="menu del dia"
-            android:layout_marginStart="10dp"/>
+    <TextView
+        android:id="@+id/tipo"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="0"
+        android:text="TIPO" />
 
-        <TextView
-            android:id="@+id/producto"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".25"
-            android:text="Comida/bebida" />
+    <TextView
+        android:id="@+id/producto"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Comida/bebida" />
 
-        <TextView
-            android:id="@+id/cantidad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="TextView"
-            android:layout_marginEnd="10dp"/>
+    <TextView
+        android:id="@+id/cantidad"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Cantidad" />
+
+    <TextView
+        android:id="@+id/hecho"
+        android:layout_width="63dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="0"
+        android:text="hecho" />
+
     </TableRow>
