@@ -12,9 +12,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 
 class MenuComandas : AppCompatActivity() {
-    @SuppressLint("WrongViewCast", "MissingInflatedId", "CutPasteId")
+    @SuppressLint("WrongViewCast", "MissingInflatedId", "CutPasteId", "Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -47,14 +48,88 @@ class MenuComandas : AppCompatActivity() {
         val imageViewEdit = findViewById<ImageView>(R.id.btnEdit)
         imageViewEdit.setOnClickListener {
             // Buscar el fragmento con el tag correcto
-            val fragment = supportFragmentManager.findFragmentByTag(ComandasFragment::class.java.simpleName)
+            supportFragmentManager.findFragmentByTag(ComandasFragment::class.java.simpleName)
 
-            // Si el fragmento no está visible, reemplazamos el fragmento actual con ListaComanda
-            if (fragment == null || !fragment.isVisible) {
-                loadFragment(ListaComanda())  // Carga el fragmento ListaComanda
-            }
+            loadFragment(ListaComanda())  // Carga el fragmento ListaComanda
         }
 
+// Encuentra el btnSend
+        val imageViewSend = findViewById<ImageView>(R.id.btnSend)
+        imageViewSend.setOnClickListener {
+
+            Log.i("btnSend", "Comanda Enviada")
+
+            // Crear la comanda con precio 0 y numeroMesa 0
+            val db = DataBaseHelper(this)
+            val ordenCreacionComanda = """
+        INSERT INTO comanda (preciopedido, numeroMesa)
+        VALUES (0, 0)
+    """.trimIndent()
+
+            db.writableDatabase.execSQL(ordenCreacionComanda)
+
+            // Obtener el último codigocomanda generado (última fila insertada)
+            val query = "SELECT last_insert_rowid() AS codigocomanda"
+            val cursor = db.readableDatabase.rawQuery(query, null)
+            var codigoComanda = -1
+            if (cursor.moveToFirst()) {
+                codigoComanda = cursor.getInt(cursor.getColumnIndex("codigocomanda"))
+            }
+            cursor.close()
+
+            // Obtener los productos seleccionados (suponiendo que los IDs de los productos están en el ViewModel)
+            val viewModel = ViewModelProvider(this).get(ViewModelPedidos::class.java)
+            val listaProductos = viewModel.productosList.value // Asumiendo que esta lista contiene los productoId's seleccionados
+
+            if (codigoComanda != -1 && listaProductos != null) {
+                // Insertar o actualizar cada producto en la tabla almacena
+                for (productoId in listaProductos) {
+                    // Verificar si el producto ya existe en la tabla almacena con el mismo codigocomanda
+                    val queryExistencia = """
+                SELECT cantidad FROM almacena WHERE productoId = ? AND codigocomanda = ?
+            """.trimIndent()
+
+                    val cursorExistente = db.readableDatabase.rawQuery(queryExistencia, arrayOf(productoId.toString(), codigoComanda.toString()))
+
+                    if (cursorExistente.moveToFirst()) {
+                        // Si ya existe, actualizar la cantidad
+                        val cantidadExistente = cursorExistente.getInt(cursorExistente.getColumnIndex("cantidad"))
+                        val nuevaCantidad = cantidadExistente + 1  // Incrementa la cantidad en 1 (puedes modificarlo)
+
+                        val ordenActualizacion = """
+                    UPDATE almacena SET cantidad = ? WHERE productoId = ? AND codigocomanda = ?
+                """.trimIndent()
+
+                        val stmtActualizar = db.writableDatabase.compileStatement(ordenActualizacion)
+                        stmtActualizar.bindLong(1, nuevaCantidad.toLong()) // nueva cantidad
+                        stmtActualizar.bindLong(2, productoId.toLong()) // productoId
+                        stmtActualizar.bindLong(3, codigoComanda.toLong()) // codigocomanda
+                        stmtActualizar.executeUpdateDelete()
+
+                        Log.i("Comanda", "Cantidad del producto $productoId actualizada.")
+                    } else {
+                        // Si no existe, insertar el producto con cantidad 1
+                        val cantidad = 1
+                        val ordenInsercionAlmacena = """
+                    INSERT INTO almacena (productoId, codigocomanda, cantidad)
+                    VALUES (?, ?, ?)
+                """.trimIndent()
+
+                        val stmtInsertar = db.writableDatabase.compileStatement(ordenInsercionAlmacena)
+                        stmtInsertar.bindLong(1, productoId.toLong()) // productoId
+                        stmtInsertar.bindLong(2, codigoComanda.toLong()) // codigocomanda
+                        stmtInsertar.bindLong(3, cantidad.toLong()) // cantidad
+                        stmtInsertar.executeInsert()
+
+                        Log.i("Comanda", "Producto $productoId añadido a almacena.")
+                    }
+                    cursorExistente.close()
+                }
+                Log.i("Comanda", "Comanda creada y productos añadidos/actualizados en la tabla almacena.")
+            }
+            viewModel.productosList.value?.clear()  // Limpia la lista
+            db.close()
+        }
 
         // Coge el numero de la mesa y lo muestra en la pantalla de camarero
         val mesa = findViewById<TextView>(R.id.textViewNMesaLabel)

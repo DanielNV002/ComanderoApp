@@ -34,29 +34,45 @@ class PplatoFragment : Fragment() {
         val btnMas3 = rootView.findViewById<TextView>(R.id.textView6)
         val btnMas4 = rootView.findViewById<TextView>(R.id.textView8)
 
-        // Configura los clics en los botones de añadir
+        // Modificar los botones para que envíen el productoId en lugar del nombre
         btnMas1.setOnClickListener {
-            agregarLinea("RISSOTO CON SETAS")
+            val productoId = obtenerProductoId("risottoSetas")
+            agregarLinea(productoId) // Pasar productoId, no el nombre
         }
         btnMas2.setOnClickListener {
-            agregarLinea("MACARRONES GORGONZOLA")
+            val productoId = obtenerProductoId("macarrones")
+            agregarLinea(productoId) // Pasar productoId, no el nombre
         }
         btnMas3.setOnClickListener {
-            agregarLinea("FIDEUÁ DE PAVO")
+            val productoId = obtenerProductoId("fideua")
+            agregarLinea(productoId) // Pasar productoId, no el nombre
         }
         btnMas4.setOnClickListener {
-            agregarLinea("POTAJE CON CALAMAR")
+            val productoId = obtenerProductoId("potaje")
+            agregarLinea(productoId) // Pasar productoId, no el nombre
         }
 
         return rootView
     }
 
-    // Función para añadir una nueva línea de FrameLayout
-    private fun agregarLinea(nombreProducto: String) {
-        // Agregar la bebida al ViewModel
-        viewModel.agregarProducto(nombreProducto)
+    // Función para obtener el productoId correspondiente al nombre
+    @SuppressLint("Range")
+    fun obtenerProductoId(nombreProducto: String): Int {
+        val db = DataBaseHelper(requireContext())
+        val query = "SELECT productoId FROM producto WHERE nombre = ?"
+        val cursor = db.readableDatabase.rawQuery(query, arrayOf(nombreProducto))
+        var productoId = -1
+        if (cursor.moveToFirst()) {
+            productoId = cursor.getInt(cursor.getColumnIndex("productoId"))
+        }
+        cursor.close()
+        db.close()
+        return productoId
+    }
 
-        // Aquí seguirías con la lógica para agregar la línea en el fragmento actual (BebidasFragment),
-        // pero el ViewModel mantiene la lista de bebidas.
+    // Función para añadir una nueva línea de FrameLayout
+    fun agregarLinea(productoId: Int) {
+        // Agregar la bebida al ViewModel usando el productoId
+        viewModel.agregarProducto(productoId)
     }
 }

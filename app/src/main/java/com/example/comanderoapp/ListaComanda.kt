@@ -31,14 +31,15 @@ class ListaComanda : Fragment() {
         // Obtén el ViewModel compartido
         viewModel = ViewModelProvider(requireActivity())[ViewModelPedidos::class.java]
 
-        // Observa los cambios en la lista de bebidas
+        // Observa los cambios en la lista de productos
         viewModel.productosList.observe(viewLifecycleOwner) { listaProductos ->
             // Limpia el contenedor
             productosContainer.removeAllViews()
 
-            // Agrega cada bebida al contenedor
-            for (producto in listaProductos) {
-                agregarLinea(producto)
+            // Agrega cada producto al contenedor con su nombre
+            for (productoId in listaProductos) {
+                val nombreProducto = viewModel.obtenerNombreProducto(productoId, requireContext())
+                agregarLinea(productoId, nombreProducto)
             }
         }
 
@@ -49,7 +50,7 @@ class ListaComanda : Fragment() {
     private var currentTopMargin = 0
 
     // Función para agregar una línea de bebida al contenedor
-    private fun agregarLinea(nombreProducto: String) {
+    private fun agregarLinea(productoId: Int, nombreProducto: String) {
         val newFrameLayout = FrameLayout(requireContext())
         newFrameLayout.layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -86,8 +87,8 @@ class ListaComanda : Fragment() {
                 setMargins(900, 0, 0, 0)
             }
             setOnClickListener {
-                // Elimina la bebida de la lista
-                viewModel.eliminarProducto(nombreProducto)
+                // Elimina la bebida de la lista usando el productoId
+                viewModel.eliminarProducto(productoId)
                 // Decrementar el topMargin después de eliminar
                 // No decrementamos de inmediato, sino cuando se ha eliminado el item visualmente
                 currentTopMargin -= resources.getDimensionPixelSize(R.dimen.frame_height)
