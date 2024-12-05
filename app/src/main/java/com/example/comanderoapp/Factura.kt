@@ -1,10 +1,11 @@
 package com.example.comanderoapp
 
 import android.annotation.SuppressLint
-import android.database.sqlite.SQLiteDatabase
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -38,8 +39,18 @@ class Factura : AppCompatActivity() {
         tlFactura=findViewById(R.id.TLFactura)
 
 
+        // Configurar el botón de imprimir para restablecer el estado
+        val botonImprimir = findViewById<ImageButton>(R.id.BotonImprimir)
+        botonImprimir.setOnClickListener {
+            // Limpia el contenido del TableLayout
+            resetFactura()
+        }
+
         llenarFactura()
     }
+
+
+
 
     @SuppressLint("Recycle")
     fun llenarFactura(){
@@ -85,4 +96,17 @@ class Factura : AppCompatActivity() {
     }
 
 
+    // Método para restablecer el estado del TableLayout
+    fun resetFactura() {
+        tlFactura?.removeAllViews() // Elimina todas las filas del TableLayout
+
+
+    // Configura el botón "back" para regresar a TerrazaActivity
+    val buttonVolver: Button = findViewById(R.id.buttonVolver)
+    buttonVolver.setOnClickListener {
+        val intent = Intent(this, TerrazaActivity::class.java)
+        startActivity(intent)
+    }
+
+    }
  }

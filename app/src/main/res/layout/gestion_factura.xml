@@ -13,6 +13,7 @@
         android:layout_weight=".50"
         android:text="TextView"
         android:background="@drawable/back"
+        android:paddingLeft="15dp"
         />
 
     <TextView
@@ -21,7 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_weight=".20"
         android:text="TextView"
-        android:background="@drawable/back"/>
+        android:background="@drawable/back"
+        android:paddingLeft="15dp"
+        />
 
     <TextView
         android:id="@+id/TextViewPrecioUnitario"
@@ -29,7 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_weight=".25"
         android:text="TextView"
-        android:background="@drawable/back"/>
+        android:background="@drawable/back"
+        android:paddingLeft="15dp"
+        />
 
     <TextView
         android:id="@+id/TextViewPrecioFinal"
@@ -37,5 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".25"
         android:text="TextView"
-        android:background="@drawable/back"/>
+        android:background="@drawable/back"
+        android:paddingLeft="15dp"
+        />
 </TableRow>
