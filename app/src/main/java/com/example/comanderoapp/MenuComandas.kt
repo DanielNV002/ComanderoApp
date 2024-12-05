@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -15,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 
 class MenuComandas : AppCompatActivity() {
-    @SuppressLint("WrongViewCast", "MissingInflatedId", "CutPasteId", "Range")
+    @SuppressLint("WrongViewCast", "MissingInflatedId", "CutPasteId", "Range", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -127,6 +128,7 @@ class MenuComandas : AppCompatActivity() {
                 }
                 Log.i("Comanda", "Comanda creada y productos añadidos/actualizados en la tabla almacena.")
             }
+            loadFragment(ComandasFragment())
             viewModel.productosList.value?.clear()  // Limpia la lista
             db.close()
         }
@@ -152,6 +154,34 @@ class MenuComandas : AppCompatActivity() {
             }
         }
 
+        // Coge el nombre del dni del trabajador
+        var nombreDni = findViewById<TextView>(R.id.textViewAtendidoPorLabel)
+        val dni = intent.getStringExtra("dni") // Obtén el DNI desde el Intent
+        val db = DataBaseHelper(this) // Inicializa tu helper de base de datos
+
+        // Verifica si el dni no es nulo
+        if (dni != null) {
+            val query = "SELECT nombre FROM trabajador WHERE dni = ?"
+            val cursor = db.readableDatabase.rawQuery(query, arrayOf(dni)) // Ejecuta la consulta
+
+            // Comprobar si se obtuvo algún resultado
+            if (cursor.moveToFirst()) {
+                // Obtén el nombre del cursor
+                val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
+
+                // Establece el nombre en el TextView
+                val nombreDni = findViewById<TextView>(R.id.textViewAtendidoPorLabel)
+                nombreDni.text = nombre
+            } else {
+                // Si no se encuentra el trabajador, puedes mostrar un mensaje o dejar el TextView vacío
+                nombreDni.text = "Trabajador no encontrado"
+            }
+
+            cursor.close() // Cierra el cursor
+            db.close() // Cierra la base de datos
+        } else {
+            Log.e("Error", "DNI no proporcionado")
+        }
     }
 
     // Metodo para cargar un fragmento

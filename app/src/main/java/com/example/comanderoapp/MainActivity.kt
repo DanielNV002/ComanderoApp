@@ -27,8 +27,10 @@ class MainActivity : AppCompatActivity() {
         // Configuración de los botones
         camareroButton.setOnClickListener {
             val dni = dniEditText.text.toString().trim().uppercase() // Convertir DNI a mayúsculas
+
             if (dbHelper.comprobarDniExistente(dni)) {
                 val intent = Intent(this, MesasActivity::class.java)
+                intent.putExtra("dni",dni)
                 startActivity(intent)
             } else {
                 mostrarToastDniNoValido()

@@ -12,12 +12,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+var dni: String?=null
+
 class MesasActivity : AppCompatActivity() {
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_mesas)
+
+        dni = intent.getStringExtra("dni")
 
         // Manejo de insets para el diseño Edge-to-Edge
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -46,7 +50,6 @@ class MesasActivity : AppCompatActivity() {
             R.id.msala1, R.id.msala2, R.id.msala3, R.id.msala4, R.id.msala5,
             R.id.msala6, R.id.msala7, R.id.msala8, R.id.msala9,
         )
-
 // Recorremos el array de identificadores
         for (i in mesas.indices) {
             val mesa = findViewById<ImageView>(mesas[i])
@@ -54,9 +57,9 @@ class MesasActivity : AppCompatActivity() {
                 val numeroMesa = i + 1 // Sumar 1 para que el número de la mesa empiece en 1
                 val intent = Intent(this, MenuComandas::class.java)
                 intent.putExtra("numeroMesa",numeroMesa)
+                intent.putExtra("dni",dni)
                 startActivity(intent)
             }
         }
-
     }
 }
