@@ -6,6 +6,7 @@
     tools:context=".PplatoFragment">
 
     <FrameLayout
+        android:id="@+id/productosContainer"
         android:layout_width="440dp"
         android:layout_height="399dp"
         android:background="@drawable/border">

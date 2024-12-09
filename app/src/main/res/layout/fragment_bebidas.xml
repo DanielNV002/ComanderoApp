@@ -6,6 +6,7 @@
     tools:context=".BebidasFragment">
 
     <FrameLayout
+        android:id="@+id/productosContainer"
         android:layout_width="440dp"
         android:layout_height="399dp"
         android:background="@drawable/border">
@@ -72,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
                 android:gravity="center_vertical"
-                android:text="CERBEZA SIN."
+                android:text="CERVEZA SIN."
                 android:textSize="23sp" />
 
             <TextView
