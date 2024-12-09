@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        tools:ignore="DiscouragedApi,LockedOrientationActivity"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,9 +14,11 @@
         android:theme="@style/Theme.ComanderoApp"
         tools:targetApi="31">
         <activity
+            android:screenOrientation="portrait"
             android:name=".Factura"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".SesionActivity"
             android:exported="true">
             <intent-filter>
@@ -26,26 +29,30 @@
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".TerrazaActivity"
             android:exported="true" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".MesasActivity"
             android:exported="false" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:exported="true" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".Cocina"
             android:exported="true" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".MenuComandas"
             android:exported ="true"
-            >
-        </activity>
+            />
 
     </application>
 
