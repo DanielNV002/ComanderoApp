@@ -40,6 +40,7 @@ class MenuComandas : AppCompatActivity() {
 
             if (fragment != null && fragment.isVisible) {
                 val intent = Intent(this, MesasActivity::class.java)
+                intent.putExtra("dni", dni)
                 startActivity(intent)
             } else {
                 loadFragmentBack(ComandasFragment())

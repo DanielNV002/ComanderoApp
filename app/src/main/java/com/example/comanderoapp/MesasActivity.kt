@@ -34,6 +34,7 @@ class MesasActivity : AppCompatActivity() {
         val salaButton: Button = findViewById(R.id.salaButton)
         salaButton.setOnClickListener {
             val intent = Intent(this, TerrazaActivity::class.java)
+            intent.putExtra("dni", dni)
             startActivity(intent)
         }
 
@@ -41,6 +42,7 @@ class MesasActivity : AppCompatActivity() {
         val atrasButton: Button = findViewById(R.id.atras)
         atrasButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("dni", dni)
             startActivity(intent)
             finish() // Cierra SalaActivity para evitar apilar actividades
         }

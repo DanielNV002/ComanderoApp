@@ -15,6 +15,8 @@ class TerrazaActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_terraza)
 
+        dni = intent.getStringExtra("dni")
+
         // Manejo de insets para el diseño Edge-to-Edge
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -26,6 +28,7 @@ class TerrazaActivity : AppCompatActivity() {
         val terrazaButton: Button = findViewById(R.id.terrazaButton)
         terrazaButton.setOnClickListener {
             val intent = Intent(this, MesasActivity::class.java)
+            intent.putExtra("dni", dni)
             startActivity(intent)
         }
 
@@ -33,6 +36,7 @@ class TerrazaActivity : AppCompatActivity() {
         val atrasButton: Button = findViewById(R.id.atras)
         atrasButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("dni", dni)
             startActivity(intent)
             finish() // Cierra MesasActivity para evitar apilar actividades
         }
@@ -50,6 +54,7 @@ class TerrazaActivity : AppCompatActivity() {
                 val numeroTerraza = i + 10 // Sumar 1 para que el número de la mesa empiece en 1
                 val intent = Intent(this, MenuComandas::class.java)
                 intent.putExtra("numeroMesa",numeroTerraza)
+                intent.putExtra("dni",dni)
                 startActivity(intent)
             }
         }
