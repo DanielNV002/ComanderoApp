@@ -33,6 +33,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
                 codigocomanda INTEGER PRIMARY KEY AUTOINCREMENT,
                 preciopedido REAL NOT NULL,
                 numeroMesa INTEGER NOT NULL,
+                recibido INTEGER NOT NULL CHECK (recibido IN (0,1)),
+                pagado INTEGER NOT NULL CHECK (pagado IN (0,1)),
                 FOREIGN KEY (numeroMesa) REFERENCES mesa(numero)
             )
         """.trimIndent()
@@ -111,18 +113,54 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
     }
 
     /**
+     * Añadir comanda
+     */
+    fun anadirComanda(precioPedido: Double, numeroMesa: Int, recibido: Boolean, pagado: Boolean) {
+        val valores = ContentValues().apply {
+            put("preciopedido", precioPedido)
+            put("numeroMesa", numeroMesa)
+            put("recibido", if (recibido) 1 else 0)
+            put("pagado", if (pagado) 1 else 0)
+        }
+
+        val db = this.writableDatabase
+        db.insert("comanda", null, valores)
+        db.close()
+    }
+
+    /**
+     * Actualizar estado comanda
+     */
+
+    fun actualizarEstadoComanda(codigoComanda: Int, recibido: Boolean, pagado: Boolean) {
+        val valores = ContentValues().apply {
+            put("recibido", if (recibido) 1 else 0)
+            put("pagado", if (pagado) 1 else 0)
+        }
+
+        val db = this.writableDatabase
+        db.update("comanda", valores, "codigocomanda = ?", arrayOf(codigoComanda.toString()))
+        db.close()
+    }
+
+
+
+    /**
      * Obtiene todas la comandas
      */
     fun obtenerComandas(): Cursor? {
         val db = this.readableDatabase
         val query = """
-        SELECT producto.tipoproducto, producto.nombre, almacena.cantidad, almacena.codigocomanda, almacena.productoId
+        SELECT producto.tipoproducto, producto.nombre, almacena.cantidad, 
+               almacena.codigocomanda, almacena.productoId, 
+               comanda.recibido, comanda.pagado
         FROM almacena 
-        INNER JOIN producto 
-        ON almacena.productoId = producto.productoId;
+        INNER JOIN producto ON almacena.productoId = producto.productoId
+        INNER JOIN comanda ON almacena.codigocomanda = comanda.codigocomanda;
     """
         return db.rawQuery(query, null)
     }
+
 
     fun eliminarProducto(idComanda: Int, idProducto: Int): Int {
         val db = writableDatabase
