@@ -88,7 +88,7 @@ class ListaComanda : Fragment() {
             }
             setOnClickListener {
                 // Elimina la bebida de la lista usando el productoId
-                viewModel.eliminarProducto(productoId)
+                viewModel.eliminarProducto(productoId,requireContext())
                 // Decrementar el topMargin después de eliminar
                 // No decrementamos de inmediato, sino cuando se ha eliminado el item visualmente
                 currentTopMargin -= resources.getDimensionPixelSize(R.dimen.frame_height)
