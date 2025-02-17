@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 
 class ListaComanda : Fragment() {
@@ -98,28 +97,39 @@ class ListaComanda : Fragment() {
                 }
             }
 
-        val textViewEliminar = TextView(requireContext()).apply {
-            text = "-"
-            textSize = 50f
-            gravity = Gravity.CENTER
-            layoutParams = FrameLayout.LayoutParams(
-                70, // Ancho fijo
-                FrameLayout.LayoutParams.MATCH_PARENT // Altura
-            ).apply {
-                // Márgenes para la posición
-                setMargins(900, 0, 0, 0)
+            val textViewCantidad = TextView(requireContext()).apply {
+                text = cantidadProducto
+                textSize = 23f
+                gravity = Gravity.CENTER_VERTICAL
+                // Usamos FrameLayout.LayoutParams con márgenes para la posición
+                layoutParams = FrameLayout.LayoutParams(
+                    1000, // Ancho fijo
+                    FrameLayout.LayoutParams.MATCH_PARENT // Altura
+                ).apply {
+                    // Márgenes para la posición
+                    setMargins(750, 0, 0, 0)
+                }
             }
-            setOnClickListener {
-                // Elimina la bebida de la lista usando el productoId
-                viewModel.eliminarProducto(productoId,requireContext())
-                // Decrementar el topMargin después de, eliminar
-                // No decrementamos de inmediato, sino cuando se ha eliminado el item visualmente
-                currentTopMargin -= resources.getDimensionPixelSize(R.dimen.frame_height)
 
-                // Actualizamos el contenedor para que los elementos se reposicionen correctamente
-                actualizarPosiciones()
+            val textViewEliminar = TextView(requireContext()).apply {
+                text = "-"
+                textSize = 50f
+                gravity = Gravity.CENTER
+                layoutParams = FrameLayout.LayoutParams(
+                    70, // Ancho fijo
+                    FrameLayout.LayoutParams.MATCH_PARENT // Altura
+                ).apply {
+                    // Márgenes para la posición
+                    setMargins(900, 0, 0, 0)
+                }
+                setOnClickListener {
+                    // Elimina el producto de la lista usando el productoId
+                    viewModel.eliminarProducto(productoId,requireContext())
+
+                    // Decrementar el topMargin después de eliminar
+                    currentTopMargin -= resources.getDimensionPixelSize(R.dimen.frame_height)
+                }
             }
-        }
 
             // Añadimos los TextView dentro del nuevo FrameLayout
             newFrameLayout.addView(textViewNombre)
