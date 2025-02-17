@@ -74,6 +74,6 @@ class SplatoFragment : Fragment() {
     // Función para añadir una nueva línea de FrameLayout
     fun agregarLinea(productoId: Int) {
         // Agregar la bebida al ViewModel usando el productoId
-        viewModel.agregarProducto(productoId)
+        viewModel.agregarProducto(productoId,requireContext())
     }
 }

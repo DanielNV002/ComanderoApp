@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -59,7 +60,7 @@ class MenuComandas : AppCompatActivity() {
         imageViewSend.setOnClickListener {
 
             Log.i("btnSend", "Comanda Enviada")
-
+            Toast.makeText(this, "Comanda enviada ", Toast.LENGTH_SHORT).show()
             // Crear la comanda con precio 0 y numeroMesa 0
             val db = DataBaseHelper(this)
             val ordenCreacionComanda = """
