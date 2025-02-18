@@ -15,7 +15,16 @@
         android:background="#bffff7"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+
+        >
+
+        <Spinner
+            android:id="@+id/spinnerMesas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="80dp"/>
 
         <TextView
             android:id="@+id/ViewMesa"
