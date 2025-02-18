@@ -60,56 +60,22 @@ class MenuComandas : AppCompatActivity() {
         val imageViewSend = findViewById<ImageView>(R.id.btnSend)
         imageViewSend.setOnClickListener {
             Log.i("btnSend", "Comanda Enviada")
-            Toast.makeText(this, "Comanda enviada ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Comanda enviada", Toast.LENGTH_SHORT).show()
 
-            // Crear la comanda con precio 0 y numeroMesa 0
             val db = DataBaseHelper(this)
-            db.anadirComanda(0.0, 0, recibido = false, pagado = false)
 
-            // Obtener el último codigocomanda generado (última fila insertada)
-            val query = "SELECT last_insert_rowid() AS codigocomanda"
-            val cursor = db.readableDatabase.rawQuery(query, null)
-            var codigoComanda = -1
-            if (cursor.moveToFirst()) {
-                codigoComanda = cursor.getInt(cursor.getColumnIndex("codigocomanda"))
-            }
-            cursor.close()
+            // Insertar la comanda y obtener su ID
+            val codigoComanda = db.anadirComanda(0.0, 0, recibido = false, pagado = false)
+            Log.i("debug", "Código de comanda generado: $codigoComanda")
 
-            // Obtener los productos seleccionados (suponiendo que los IDs de los productos están en el ViewModel)
+            // Obtener los productos seleccionados desde el ViewModel
             val viewModel = ViewModelProvider(this).get(ViewModelPedidos::class.java)
-            val listaProductos = viewModel.productosList.value // Asumiendo que esta lista contiene los productoId's seleccionados
+            val listaProductos = viewModel.productosList.value
 
             if (codigoComanda != -1 && listaProductos != null) {
-                // Insertar o actualizar cada producto en la tabla almacena
+                // Iterar sobre cada producto y usar el método del DatabaseHelper para añadir o actualizar
                 for (productoId in listaProductos) {
-                    // Verificar si el producto ya existe en la tabla almacena con el mismo codigocomanda
-                    val queryExistencia = """
-                SELECT cantidad FROM almacena WHERE productoId = ? AND codigocomanda = ?
-            """.trimIndent()
-
-                    val cursorExistente = db.readableDatabase.rawQuery(queryExistencia, arrayOf(productoId.toString(), codigoComanda.toString()))
-
-                    if (cursorExistente.moveToFirst()) {
-                        // Si ya existe, actualizar la cantidad
-                        val cantidadExistente = cursorExistente.getInt(cursorExistente.getColumnIndex("cantidad"))
-                        val nuevaCantidad = cantidadExistente + 1  // Incrementa la cantidad en 1 (puedes modificarlo)
-
-                        // Actualizar la cantidad en la tabla almacena
-                        db.writableDatabase.execSQL("""
-                    UPDATE almacena SET cantidad = ? WHERE productoId = ? AND codigocomanda = ?
-                """.trimIndent(), arrayOf(nuevaCantidad, productoId, codigoComanda))
-
-                        Log.i("Comanda", "Cantidad del producto $productoId actualizada.")
-                    } else {
-                        // Si no existe, insertar el producto con cantidad 1
-                        db.writableDatabase.execSQL("""
-                    INSERT INTO almacena (productoId, codigocomanda, cantidad)
-                    VALUES (?, ?, ?)
-                """.trimIndent(), arrayOf(productoId, codigoComanda, 1))
-
-                        Log.i("Comanda", "Producto $productoId añadido a almacena.")
-                    }
-                    cursorExistente.close()
+                    db.anadirOActualizarProducto(productoId, codigoComanda) // Convertimos el Long a Int si es necesario
                 }
                 Log.i("Comanda", "Comanda creada y productos añadidos/actualizados en la tabla almacena.")
             }
@@ -120,9 +86,9 @@ class MenuComandas : AppCompatActivity() {
             // Limpiar la lista de productos seleccionados en el ViewModel
             viewModel.productosList.value?.clear()
 
+            // Cerrar la base de datos
             db.close()
         }
-
 
         // Coge el numero de la mesa y lo muestra en la pantalla de camarero
         val mesa = findViewById<TextView>(R.id.textViewNMesaLabel)

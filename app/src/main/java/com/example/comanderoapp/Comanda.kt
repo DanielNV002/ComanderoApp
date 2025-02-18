@@ -79,22 +79,32 @@ class Comanda : Fragment() {
 
 
     fun sacarRecibos() {
-        val comanda = base?.obtenerComandas()
+        val comanda = base.obtenerComandas()
         tlComanda?.removeAllViews()
+        if (comanda != null) {
+            Log.d("DB_DEBUG", "Número de filas: ${comanda.count}")
+        }
         //pasamos por todas las bebidas
         val index =
-            LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_pn, null, false)
+            LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_pn, tlComanda, false)
         tlComanda?.addView(index)
+        Log.i("Comanda","estofunciona")
         if (comanda != null && comanda.moveToFirst()) {
-                do {
-                    val tipo = comanda?.getString(0)
-                    if(filtrar(tipo.orEmpty())){
+            Log.i("Comanda","funciona BBDD")
+            do {
+                val hecho = comanda.getInt(5)
+                Log.i("Comanda",hecho.toString())
+                if(hecho==0) {
+                    val tipo = comanda.getString(0)
+                    if (filtrar(tipo.orEmpty())) {
                         //sacamos la variable de las filas de las tablas
                         val registro =
-                            LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_pn, null, false)
+                            LayoutInflater.from(requireContext())
+                                .inflate(R.layout.item_table_layout_pn, null, false)
                         //literalmente es una fila con puntos no hay más
                         val puntos =
-                            LayoutInflater.from(requireContext()).inflate(R.layout.item_table_layout_puntos, null, false)
+                            LayoutInflater.from(requireContext())
+                                .inflate(R.layout.item_table_layout_puntos, null, false)
                         //cojemos los dos registros de cada TextView
                         val tipoT = registro.findViewById<View>(R.id.tipo) as TextView
                         val nombre = registro.findViewById<View>(R.id.producto) as TextView
@@ -102,8 +112,8 @@ class Comanda : Fragment() {
                         val hecho = registro.findViewById<View>(R.id.hecho) as TextView
                         //metemos los valores a cada TextView
                         tipoT.setText(tipo)
-                        nombre.setText(comanda?.getString(1))
-                        val numero = "x" + comanda?.getInt(2)
+                        nombre.setText(comanda.getString(1))
+                        val numero = "x" + comanda.getInt(2)
                         cantidad.setText(numero)
                         hecho.setText("✔")
 
@@ -115,21 +125,30 @@ class Comanda : Fragment() {
                             val par = Pair(idComanda, idProducto)
                             if (elementosSeleccionados.contains(par)) {
                                 elementosSeleccionados.remove(par)
-                                Toast.makeText(requireContext(), nombre.text.toString()+" quitada de hecho", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    nombre.text.toString() + " quitada de hecho",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             } else {
                                 elementosSeleccionados.add(par)
                                 registro.setBackgroundColor(2321)
-                                Log.i("Comanda",nombre.text.toString())
-                                Toast.makeText(requireContext(), nombre.text.toString()+" añadida de hecho", Toast.LENGTH_SHORT).show()
+                                Log.i("Comanda", nombre.text.toString())
+                                Toast.makeText(
+                                    requireContext(),
+                                    nombre.text.toString() + " añadida de hecho",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
 
                         //metemos las dos filas en la tabla
                         tlComanda?.addView(registro)
                         tlComanda?.addView(puntos)
-                        Log.i("Comanda",nombre.text.toString())
+                        Log.i("Comanda", nombre.text.toString())
                     }
-                }while(comanda.moveToNext())
+                }
+            }while(comanda.moveToNext())
         }
     }
 }

@@ -78,7 +78,7 @@ class Cocina : AppCompatActivity() {
 
         // Elimina de la base de datos
         idsAEliminar.forEach { (idComanda, idProducto) ->
-            val num = base.eliminarProducto(idComanda, idProducto)
+            val num = base.hacerProducto(idComanda, idProducto)
             Log.i("Comandas",num.toString())
         }
 

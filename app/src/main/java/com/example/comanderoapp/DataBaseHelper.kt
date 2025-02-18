@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscomandero.db", null, 1) {
 
@@ -57,6 +58,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
                 productoId INTEGER NOT NULL,
                 codigocomanda INTEGER NOT NULL,
                 cantidad INTEGER NOT NULL CHECK (cantidad > 0),
+                hecho INTEGER NOT NULL CHECK (hecho IN (0,1)),
                 PRIMARY KEY (productoId, codigocomanda),
                 FOREIGN KEY (productoId) REFERENCES producto(productoId),
                 FOREIGN KEY (codigocomanda) REFERENCES comanda(codigocomanda)
@@ -112,10 +114,8 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
         return db.rawQuery(query, arrayOf(dni))
     }
 
-    /**
-     * Añadir comanda
-     */
-    fun anadirComanda(precioPedido: Double, numeroMesa: Int, recibido: Boolean, pagado: Boolean) {
+    fun anadirComanda(precioPedido: Double, numeroMesa: Int, recibido: Boolean, pagado: Boolean): Int {
+        val db = this.writableDatabase
         val valores = ContentValues().apply {
             put("preciopedido", precioPedido)
             put("numeroMesa", numeroMesa)
@@ -123,9 +123,16 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
             put("pagado", if (pagado) 1 else 0)
         }
 
-        val db = this.writableDatabase
         db.insert("comanda", null, valores)
-        db.close()
+        // Obtener el último codigocomanda generado usando la misma conexión
+        val query = "SELECT last_insert_rowid() AS codigocomanda"
+        val cursor = db.rawQuery(query, null)
+        var codigoComanda = -1
+        if (cursor.moveToFirst()) {
+            codigoComanda = cursor.getInt(cursor.getColumnIndexOrThrow("codigocomanda"))
+            Log.i("debug", codigoComanda.toString())
+        }
+        return codigoComanda // Devuelve el ID de la comanda insertada
     }
 
     /**
@@ -152,7 +159,7 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
         val db = this.readableDatabase
         val query = """
         SELECT producto.tipoproducto, producto.nombre, almacena.cantidad, 
-               almacena.codigocomanda, almacena.productoId, 
+               almacena.codigocomanda, almacena.productoId, almacena.hecho,
                comanda.recibido, comanda.pagado
         FROM almacena 
         INNER JOIN producto ON almacena.productoId = producto.productoId
@@ -232,5 +239,49 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
         } finally {
             db.endTransaction()
         }
+    }
+
+    fun anadirOActualizarProducto(productoId: Int, codigocomanda: Int) {
+        val db = this.writableDatabase
+        // Verificar si el producto ya está asociado a la comanda
+        val query = "SELECT cantidad FROM almacena WHERE productoId = ? AND codigocomanda = ?"
+        val cursor = db.rawQuery(query, arrayOf(productoId.toString(), codigocomanda.toString()))
+
+        if (cursor.moveToFirst()) {
+            // Si ya existe, actualizamos la cantidad
+            val cantidadExistente = cursor.getInt(cursor.getColumnIndexOrThrow("cantidad"))
+            val nuevaCantidad = cantidadExistente + 1
+
+            val contentValues = ContentValues().apply {
+                put("cantidad", nuevaCantidad)
+            }
+            db.update("almacena", contentValues, "productoId = ? AND codigocomanda = ?", arrayOf(productoId.toString(), codigocomanda.toString()))
+            Log.i("Comanda", "Cantidad del producto $productoId actualizada a $nuevaCantidad.")
+        } else {
+            // Si no existe, se inserta el producto con cantidad 1
+            val contentValues = ContentValues().apply {
+                put("productoId", productoId)
+                put("codigocomanda", codigocomanda)
+                put("cantidad", 1)
+                put("hecho", 0)
+            }
+            db.insert("almacena", null, contentValues)
+            Log.i("Comanda", "Producto $productoId añadido a almacena con cantidad 1.")
+        }
+        cursor.close()
+        // Es recomendable no cerrar la base de datos aquí si se reutiliza la instancia
+        // db.close()
+    }
+    fun hacerProducto(idComanda: Int, idProducto: Int) {
+        val valores = ContentValues().apply {
+            put("hecho", 1)
+        }
+        val query = """
+            SELECT 
+            FROM almacena ;
+        """
+        val db = this.writableDatabase
+        //db.update("almacena", valores, "codigocomanda = ?", arrayOf(idProducto.toString()))
+        db.close()
     }
 }
