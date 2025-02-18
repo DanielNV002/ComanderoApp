@@ -276,12 +276,23 @@ class DataBaseHelper(context: Context) : SQLiteOpenHelper(context, "basedatoscom
         val valores = ContentValues().apply {
             put("hecho", 1)
         }
-        val query = """
-            SELECT 
-            FROM almacena ;
-        """
         val db = this.writableDatabase
-        //db.update("almacena", valores, "codigocomanda = ?", arrayOf(idProducto.toString()))
+
+        // Actualizamos directamente usando los campos de la clave primaria
+        val filasAfectadas = db.update(
+            "almacena",
+            valores,
+            "codigocomanda = ? AND productoId = ?",
+            arrayOf(idComanda.toString(), idProducto.toString())
+        )
+
+        if (filasAfectadas == 0) {
+            Log.w("hacerProducto", "No se encontró ningún registro para idComanda=$idComanda e idProducto=$idProducto")
+        } else {
+            Log.i("hacerProducto", "Producto actualizado correctamente")
+        }
+
         db.close()
     }
+
 }
