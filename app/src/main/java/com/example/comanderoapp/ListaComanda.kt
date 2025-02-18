@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 
 class ListaComanda : Fragment() {
@@ -125,7 +124,7 @@ class ListaComanda : Fragment() {
                 }
                 setOnClickListener {
                     // Elimina el producto de la lista usando el productoId
-                    viewModel.eliminarProducto(productoId)
+                    viewModel.eliminarProducto(productoId,requireContext())
 
                     // Decrementar el topMargin después de eliminar
                     currentTopMargin -= resources.getDimensionPixelSize(R.dimen.frame_height)

@@ -47,6 +47,13 @@ class Factura : AppCompatActivity() {
         }
 
         llenarFactura()
+
+        // Configura el botón "back" para regresar a TerrazaActivity
+        val buttonVolver: Button = findViewById(R.id.buttonVolver)
+        buttonVolver.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 
@@ -101,12 +108,7 @@ class Factura : AppCompatActivity() {
         tlFactura?.removeAllViews() // Elimina todas las filas del TableLayout
 
 
-    // Configura el botón "back" para regresar a TerrazaActivity
-    val buttonVolver: Button = findViewById(R.id.buttonVolver)
-    buttonVolver.setOnClickListener {
-        val intent = Intent(this, TerrazaActivity::class.java)
-        startActivity(intent)
-    }
+
 
     }
  }
