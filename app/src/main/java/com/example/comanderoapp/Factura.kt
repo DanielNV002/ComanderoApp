@@ -1,11 +1,14 @@
 package com.example.comanderoapp
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TableLayout
@@ -25,6 +28,7 @@ class Factura : AppCompatActivity() {
         tlFactura = findViewById(R.id.TLFactura)
         val spinnerMesas = findViewById<Spinner>(R.id.spinnerMesas)
         val botonImprimir = findViewById<ImageButton>(R.id.BotonImprimir)
+        val botonBack: Button = findViewById(R.id.botonBack) // Referencia al botón "Back"
 
         // Obtener las mesas con comandas pendientes
         val mesasPendientes = obtenerMesasPendientes()
@@ -59,6 +63,13 @@ class Factura : AppCompatActivity() {
                 Toast.makeText(this, "No hay mesas pendientes", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // Configura el botón "Back" para regresar a MainActivity
+        botonBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // Cierra la actividad actual para evitar apilar actividades
+        }
     }
 
     // Obtener mesas con comandas pendientes de pago
@@ -87,21 +98,22 @@ class Factura : AppCompatActivity() {
         val bbdd = conecta.readableDatabase
 
         val query = """
-            SELECT p.nombre AS nombreProducto, a.cantidad, p.precio AS precioUnitario, 
-                   (a.cantidad * p.precio) AS precioFinal
-            FROM almacena a
-            INNER JOIN producto p ON a.productoId = p.productoId
-            INNER JOIN comanda c ON a.codigocomanda = c.codigocomanda
-            WHERE c.numeroMesa = ? AND c.pagado = 0
-        """
+        SELECT p.nombre AS nombreProducto, a.cantidad, p.precio AS precioUnitario, 
+               (a.cantidad * p.precio) AS precioFinal
+        FROM almacena a
+        INNER JOIN producto p ON a.productoId = p.productoId
+        INNER JOIN comanda c ON a.codigocomanda = c.codigocomanda
+        WHERE c.numeroMesa = ? AND c.pagado = 0
+    """
 
         val fila = bbdd.rawQuery(query, arrayOf(numeroMesa.toString()))
         var precioTotal = 0.0
 
         tlFactura?.removeAllViews()  // Limpiar la factura antes de llenarla
-        tlFactura?.addView(LayoutInflater.from(this).inflate(R.layout.tabla_titulos, null, false))
 
-        if (fila.moveToFirst()) {
+        if (!fila.moveToFirst()) {
+            Toast.makeText(this, "No se encontraron productos para la mesa seleccionada", Toast.LENGTH_SHORT).show()
+        } else {
             do {
                 val registrar = LayoutInflater.from(this).inflate(R.layout.gestion_factura, null, false)
 
