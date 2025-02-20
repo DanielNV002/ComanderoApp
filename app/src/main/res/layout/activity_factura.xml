@@ -9,14 +9,13 @@
 
     <FrameLayout
         android:id="@+id/FrameSala"
-        android:layout_width="410dp"
-        android:layout_height="50dp"
+        android:layout_width="411dp"
+        android:layout_height="51dp"
         android:layout_marginTop="52dp"
-        android:background="#bffff7"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
-
+        android:background="@drawable/back"
         >
 
         <Spinner
@@ -49,12 +48,64 @@
             />
     </FrameLayout>
 
+    <!-- Nueva fila con los títulos de las columnas -->
+    <TableLayout
+        android:id="@+id/tablaTitulos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/FrameSala"
+        android:background="#FFFFFF">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nombre Producto"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/back"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="Cantidad"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Precio Unitario"
+                android:textStyle="bold"
+                android:background="@drawable/back"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Precio Final"
+                android:textStyle="bold"
+                android:background="@drawable/back"
+                />
+        </TableRow>
+    </TableLayout>
 
     <FrameLayout
         android:id="@+id/FrameFactura"
-        android:layout_width="412dp"
-        android:layout_height="470dp"
-        android:background="#bffff7"
+        android:layout_width="415dp"
+        android:layout_height="461dp"
+        android:background="@drawable/back"
         app:layout_constraintBottom_toTopOf="@+id/FrameImpresora"
         app:layout_constraintTop_toBottomOf="@+id/FrameSala"
         tools:ignore="MissingConstraints"
@@ -64,6 +115,7 @@
             android:id="@+id/TLFactura"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
             <TableRow
                 android:layout_width="match_parent"
@@ -86,10 +138,10 @@
 
     <FrameLayout
         android:id="@+id/FrameImpresora"
-        android:layout_width="410dp"
-        android:layout_height="50dp"
+        android:layout_width="413dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="48dp"
-        android:background="#bffff7"
+        android:background="@drawable/back"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-2dp">
@@ -113,6 +165,7 @@
             android:layout_marginLeft="280dp"
             android:textStyle="bold"
             android:text="TOTAL: "
+            android:background="@drawable/back"
             />
 
         <Button
