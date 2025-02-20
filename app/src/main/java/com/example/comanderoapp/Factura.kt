@@ -16,9 +16,8 @@ import android.widget.TextView
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity
 
-
-
 class Factura : AppCompatActivity() {
+
     private var tlFactura: TableLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +27,12 @@ class Factura : AppCompatActivity() {
         tlFactura = findViewById(R.id.TLFactura)
         val spinnerMesas = findViewById<Spinner>(R.id.spinnerMesas)
         val botonImprimir = findViewById<ImageButton>(R.id.BotonImprimir)
-        val botonBack: Button = findViewById(R.id.botonBack) // Referencia al botón "Back"
+        val botonBack: Button = findViewById(R.id.botonBack)
 
         // Obtener las mesas con comandas pendientes
         val mesasPendientes = obtenerMesasPendientes()
+        Log.d("FacturaActivity", "Mesas pendientes: ${mesasPendientes.joinToString()}")
+
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, mesasPendientes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerMesas.adapter = adapter
@@ -40,7 +41,8 @@ class Factura : AppCompatActivity() {
         spinnerMesas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val mesaSeleccionada = parent.getItemAtPosition(position).toString()
-                llenarFactura(mesaSeleccionada.toInt())  // Convertimos el número de mesa a Int
+                Log.d("FacturaActivity", "Mesa seleccionada: $mesaSeleccionada")
+                llenarFactura(mesaSeleccionada.toInt())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -56,6 +58,7 @@ class Factura : AppCompatActivity() {
 
                 // Recargar las mesas disponibles
                 val nuevasMesas = obtenerMesasPendientes()
+                Log.d("FacturaActivity", "Nuevas mesas pendientes: ${nuevasMesas.joinToString()}")
                 adapter.clear()
                 adapter.addAll(nuevasMesas)
                 adapter.notifyDataSetChanged()
@@ -68,7 +71,7 @@ class Factura : AppCompatActivity() {
         botonBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish() // Cierra la actividad actual para evitar apilar actividades
+            finish()
         }
     }
 
@@ -83,8 +86,12 @@ class Factura : AppCompatActivity() {
 
         if (fila.moveToFirst()) {
             do {
-                listaMesas.add(fila.getInt(0).toString())
+                val numeroMesa = fila.getInt(0).toString()
+                listaMesas.add(numeroMesa)
+                Log.d("FacturaActivity", "Mesa pendiente encontrada: $numeroMesa")
             } while (fila.moveToNext())
+        } else {
+            Log.d("FacturaActivity", "No se encontraron mesas pendientes")
         }
 
         fila.close()
@@ -98,13 +105,13 @@ class Factura : AppCompatActivity() {
         val bbdd = conecta.readableDatabase
 
         val query = """
-        SELECT p.nombre AS nombreProducto, a.cantidad, p.precio AS precioUnitario, 
-               (a.cantidad * p.precio) AS precioFinal
-        FROM almacena a
-        INNER JOIN producto p ON a.productoId = p.productoId
-        INNER JOIN comanda c ON a.codigocomanda = c.codigocomanda
-        WHERE c.numeroMesa = ? AND c.pagado = 0
-    """
+            SELECT p.nombre AS nombreProducto, a.cantidad, p.precio AS precioUnitario, 
+                   (a.cantidad * p.precio) AS precioFinal
+            FROM almacena a
+            INNER JOIN producto p ON a.productoId = p.productoId
+            INNER JOIN comanda c ON a.codigocomanda = c.codigocomanda
+            WHERE c.numeroMesa = ? AND c.pagado = 0
+        """
 
         val fila = bbdd.rawQuery(query, arrayOf(numeroMesa.toString()))
         var precioTotal = 0.0
@@ -112,9 +119,17 @@ class Factura : AppCompatActivity() {
         tlFactura?.removeAllViews()  // Limpiar la factura antes de llenarla
 
         if (!fila.moveToFirst()) {
+            Log.d("FacturaActivity", "No se encontraron productos para la mesa $numeroMesa")
             Toast.makeText(this, "No se encontraron productos para la mesa seleccionada", Toast.LENGTH_SHORT).show()
         } else {
             do {
+                val nombreProducto = fila.getString(fila.getColumnIndexOrThrow("nombreProducto"))
+                val cantidad = fila.getInt(fila.getColumnIndexOrThrow("cantidad"))
+                val precioUnitario = fila.getDouble(fila.getColumnIndexOrThrow("precioUnitario"))
+                val precioFinal = fila.getDouble(fila.getColumnIndexOrThrow("precioFinal"))
+
+                Log.d("FacturaActivity", "Producto: $nombreProducto, Cantidad: $cantidad, Precio: $precioFinal")
+
                 val registrar = LayoutInflater.from(this).inflate(R.layout.gestion_factura, null, false)
 
                 val textViewNombreProducto = registrar.findViewById<TextView>(R.id.textViewNombreProducto)
@@ -122,12 +137,12 @@ class Factura : AppCompatActivity() {
                 val textViewPrecioUnitario = registrar.findViewById<TextView>(R.id.TextViewPrecioUnitario)
                 val textViewPrecioTotal = registrar.findViewById<TextView>(R.id.TextViewPrecioFinal)
 
-                textViewNombreProducto.text = fila.getString(fila.getColumnIndexOrThrow("nombreProducto"))
-                textViewCantidad.text = fila.getInt(fila.getColumnIndexOrThrow("cantidad")).toString()
-                textViewPrecioUnitario.text = fila.getDouble(fila.getColumnIndexOrThrow("precioUnitario")).toString()
-                textViewPrecioTotal.text = fila.getDouble(fila.getColumnIndexOrThrow("precioFinal")).toString()
+                textViewNombreProducto.text = nombreProducto
+                textViewCantidad.text = cantidad.toString()
+                textViewPrecioUnitario.text = precioUnitario.toString()
+                textViewPrecioTotal.text = precioFinal.toString()
 
-                precioTotal += fila.getDouble(fila.getColumnIndexOrThrow("precioFinal"))
+                precioTotal += precioFinal
 
                 tlFactura?.addView(registrar)
 
