@@ -42,13 +42,13 @@ class Factura : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-                // Manejo del botón Imprimir
-                botonImprimir.setOnClickListener {
-                val mesaSeleccionada = spinnerMesas.selectedItem?.toString()?.toIntOrNull()
-                if (mesaSeleccionada != null) {
-                    marcarComandaComoPagada(mesaSeleccionada)
-                    tlFactura?.removeAllViews()
-                    Toast.makeText(this, "Comanda impresa y marcada como pagada", Toast.LENGTH_SHORT).show()
+        // Manejo del botón Imprimir
+        botonImprimir.setOnClickListener {
+            val mesaSeleccionada = spinnerMesas.selectedItem?.toString()?.toIntOrNull()
+            if (mesaSeleccionada != null) {
+                marcarComandaComoPagada(mesaSeleccionada)
+                tlFactura?.removeAllViews()
+                Toast.makeText(this, "Comanda impresa y marcada como pagada", Toast.LENGTH_SHORT).show()
 
                 // Recargar las mesas disponibles
                 val nuevasMesas = obtenerMesasPendientes()
@@ -99,6 +99,7 @@ class Factura : AppCompatActivity() {
         var precioTotal = 0.0
 
         tlFactura?.removeAllViews()  // Limpiar la factura antes de llenarla
+        tlFactura?.addView(LayoutInflater.from(this).inflate(R.layout.tabla_titulos, null, false))
 
         if (fila.moveToFirst()) {
             do {
@@ -140,4 +141,4 @@ class Factura : AppCompatActivity() {
         bbdd.update("comanda", valores, "numeroMesa = ? AND pagado = 0", arrayOf(numeroMesa.toString()))
         bbdd.close()
     }
- }
+}

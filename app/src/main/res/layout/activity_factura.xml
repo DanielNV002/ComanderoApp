@@ -36,6 +36,9 @@
             android:paddingStart="16dp"
             />
 
+
+        <!--
+
         <TextView
             android:id="@+id/textViewNumeroMesa"
             android:layout_width="wrap_content"
@@ -46,10 +49,13 @@
             android:text=" "
 
             />
+        -->
+
     </FrameLayout>
 
-    <!-- Nueva fila con los títulos de las columnas -->
-    <TableLayout
+    <!--
+
+      <TableLayout
         android:id="@+id/tablaTitulos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,6 +107,9 @@
         </TableRow>
     </TableLayout>
 
+     -->
+
+
     <FrameLayout
         android:id="@+id/FrameFactura"
         android:layout_width="415dp"
@@ -110,6 +119,8 @@
         app:layout_constraintTop_toBottomOf="@+id/FrameSala"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-2dp">
+
+
 
         <TableLayout
             android:id="@+id/TLFactura"
@@ -147,6 +158,7 @@
         tools:layout_editor_absoluteX="-2dp">
 
 
+
         <ImageButton
             android:id="@+id/BotonImprimir"
             android:layout_width="66dp"
@@ -165,7 +177,6 @@
             android:layout_marginLeft="280dp"
             android:textStyle="bold"
             android:text="TOTAL: "
-            android:background="@drawable/back"
             />
 
         <Button

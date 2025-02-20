@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="409dp"
+    android:layout_height="729dp"
+
+    >
+
+    <TextView
+        android:id="@+id/textViewNombreProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight=".50"
+        android:text="Nombre Producto"
+        android:background="@drawable/back"
+        android:paddingLeft="15dp"
+        />
+
+    <TextView
+        android:id="@+id/textViewCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight=".20"
+        android:text="Cantidad"
+        android:background="@drawable/back"
+        android:paddingLeft="15dp"
+        />
+
+    <TextView
+        android:id="@+id/TextViewPrecioUnitario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:text="Precio Unitario"
+        android:background="@drawable/back"
+        android:paddingLeft="15dp"
+        />
+
+    <TextView
+        android:id="@+id/TextViewPrecioFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:text="Precio Final"
+        android:background="@drawable/back"
+        android:paddingLeft="15dp"
+        />
+</TableRow>
