@@ -101,6 +101,7 @@ class Factura : AppCompatActivity() {
 
     // Llenar factura con la comanda de la mesa seleccionada
     fun llenarFactura(numeroMesa: Int) {
+        Log.i("muestra"," "+numeroMesa)
         val conecta = DataBaseHelper(this)
         val bbdd = conecta.readableDatabase
 
