@@ -1,5 +1,6 @@
 package com.example.comanderoapp
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +14,7 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TableLayout
 import android.widget.TextView
-import android.widget.Toast;
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class Factura : AppCompatActivity() {
@@ -100,6 +101,7 @@ class Factura : AppCompatActivity() {
     }
 
     // Llenar factura con la comanda de la mesa seleccionada
+    @SuppressLint("SetTextI18n", "InflateParams")
     fun llenarFactura(numeroMesa: Int) {
         Log.i("muestra"," "+numeroMesa)
         val conecta = DataBaseHelper(this)
@@ -118,6 +120,8 @@ class Factura : AppCompatActivity() {
         var precioTotal = 0.0
 
         tlFactura?.removeAllViews()  // Limpiar la factura antes de llenarla
+
+        tlFactura?.addView(LayoutInflater.from(this).inflate(R.layout.tabla_titulos, null, false))
 
         if (!fila.moveToFirst()) {
             Log.d("FacturaActivity", "No se encontraron productos para la mesa $numeroMesa")
@@ -140,8 +144,8 @@ class Factura : AppCompatActivity() {
 
                 textViewNombreProducto.text = nombreProducto
                 textViewCantidad.text = cantidad.toString()
-                textViewPrecioUnitario.text = precioUnitario.toString()
-                textViewPrecioTotal.text = precioFinal.toString()
+                textViewPrecioUnitario.text = precioUnitario.toString()+"€"
+                textViewPrecioTotal.text = precioFinal.toString()+"€"
 
                 precioTotal += precioFinal
 
@@ -151,7 +155,7 @@ class Factura : AppCompatActivity() {
         }
 
         val textViewPrecioTotal = findViewById<TextView>(R.id.textViewPrecioTotal)
-        textViewPrecioTotal.text = "TOTAL: $precioTotal"
+        textViewPrecioTotal.text = "TOTAL: $precioTotal€"
 
         fila.close()
         bbdd.close()
