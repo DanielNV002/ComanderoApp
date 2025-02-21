@@ -65,7 +65,8 @@ class MenuComandas : AppCompatActivity() {
             val db = DataBaseHelper(this)
 
             // Insertar la comanda y obtener su ID
-            val codigoComanda = db.anadirComanda(0.0, 0, recibido = false, pagado = false)
+            var numeroMesa: Int = intent.getIntExtra("numeroMesa", 0)
+            val codigoComanda = db.anadirComanda(0.0, numeroMesa, recibido = false, pagado = false)
             Log.i("debug", "Código de comanda generado: $codigoComanda")
 
             // Obtener los productos seleccionados desde el ViewModel
